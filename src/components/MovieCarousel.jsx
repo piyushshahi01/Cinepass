@@ -87,7 +87,7 @@ export default function MovieCarousel({ children, title, eyebrow, tag, className
         <div
           ref={trackRef}
           onScroll={checkScroll}
-          className="flex gap-4 overflow-x-auto pt-12 pb-16 -mt-12 -mb-12 px-24 -mx-24"
+          className="flex gap-4 overflow-x-auto pt-32 pb-32 -mt-32 -mb-32 px-24 -mx-24"
           style={{
             scrollbarWidth: "none",
             msOverflowStyle: "none",

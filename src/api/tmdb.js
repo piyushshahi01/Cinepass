@@ -37,9 +37,12 @@ export const getSimilarMovies = (id) => tmdb.get(`/movie/${id}/similar`).then(r 
 // ── Genres ────────────────────────────────────────────────────────────────
 export const getGenres = () => tmdb.get("/genre/movie/list").then(r => r.data.genres);
 
-// ── Search ────────────────────────────────────────────────────────────────
+// ── Search & Discover ────────────────────────────────────────────────────────
 export const searchMovies = (query, page = 1) =>
   tmdb.get("/search/movie", { params: { query, page, include_adult: false } }).then(r => r.data);
+
+export const discoverMovies = (params) => 
+  tmdb.get("/discover/movie", { params: { include_adult: false, ...params } }).then(r => r.data);
 
 // ── Helpers ───────────────────────────────────────────────────────────────
 export const getTrailerKey = (videos = []) => {

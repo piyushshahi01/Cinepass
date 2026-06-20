@@ -5,6 +5,10 @@ import { Toaster } from 'react-hot-toast'
 import './index.css'
 import App from './App.jsx'
 
+import { ThemeProvider } from './context/ThemeContext'
+import { ToastProvider } from './context/ToastContext'
+import { BookingProvider } from './context/BookingContext'
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -17,8 +21,13 @@ const queryClient = new QueryClient({
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <App />
-      <Toaster position="bottom-center" />
+      <ThemeProvider>
+        <BookingProvider>
+          <ToastProvider>
+            <App />
+          </ToastProvider>
+        </BookingProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   </StrictMode>,
 )

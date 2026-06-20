@@ -148,7 +148,10 @@ export default function MovieDetailModal({ movie, onClose, onOpenDetail }) {
                   <button
                     className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-all hover:scale-[1.02] active:scale-[0.98]"
                     style={{ background: "#e11d48" }}
-                    onClick={() => toast.success("Redirecting to booking... 🎟️", { duration: 2000, style: { background: "#1a1a2e", color: "#fff" } })}
+                    onClick={() => {
+                      onClose();
+                      window.location.href = `/movie/${movie.id}/theatres`;
+                    }}
                   >
                     🎟 Book Tickets
                   </button>
@@ -265,7 +268,7 @@ export default function MovieDetailModal({ movie, onClose, onOpenDetail }) {
             {similar.length > 0 && (
               <div className="mt-7">
                 <h3 className="text-xs font-semibold uppercase tracking-widest text-white/40 mb-4">More Like This</h3>
-                <div className="flex gap-3 overflow-x-auto pb-2" style={{ scrollbarWidth: "none" }}>
+                <div className="flex gap-3 overflow-x-auto pt-32 pb-32 -mt-32 -mb-32 px-4 -mx-4" style={{ scrollbarWidth: "none" }}>
                   {similar.map(m => (
                     <MovieCard key={m.id} movie={m} onOpenDetail={onOpenDetail} />
                   ))}

@@ -51,11 +51,20 @@ function useHoverSequence() {
   return { level, align, start, stop };
 }
 
+import { useNavigate } from "react-router-dom";
+
 export default function MovieCard({ movie, onOpenDetail }) {
   const { level, align, start, stop } = useHoverSequence();
+  const navigate = useNavigate();
   const year = getYear(movie.release_date || movie.first_air_date);
   const rating = getRating(movie.vote_average);
   const posterUrl = poster(movie.poster_path, "w342");
+
+  const handleClick = (e) => {
+    e?.stopPropagation();
+    if (onOpenDetail) onOpenDetail(movie);
+    else navigate(`/movie/${movie.id}`);
+  };
 
   return (
     <div
@@ -102,6 +111,7 @@ const PLACEHOLDER_MP4 = "https://assets.mixkit.co/videos/preview/mixkit-stars-in
 function HoverCard({ movie, level, align, posterUrl, baseYear, baseRating, onOpenDetail }) {
   const { data: details } = useMovieDetails(movie.id, true);
   const { toggle, has } = useWatchlist();
+  const navigate = useNavigate();
   
   const inWatchlist = has(movie.id);
   const genres = details?.genres?.slice(0, 3) || [];
@@ -120,10 +130,7 @@ function HoverCard({ movie, level, align, posterUrl, baseYear, baseRating, onOpe
 
   const handleBook = (e) => {
     e.stopPropagation();
-    toast.success("Redirecting to booking... 🎟️", {
-      duration: 2000,
-      style: { background: "#1a1a2e", color: "#fff", border: "1px solid rgba(225,29,72,0.3)" }
-    });
+    navigate(`/movie/${movie.id}/theatres`);
   };
 
   // State 1: Raised (200ms)
@@ -171,7 +178,10 @@ function HoverCard({ movie, level, align, posterUrl, baseYear, baseRating, onOpe
       initial="hidden"
       animate={isExpanded ? "expanded" : "raised"}
       exit="hidden"
-      onClick={() => onOpenDetail?.(movie)}
+      onClick={() => {
+        if (onOpenDetail) onOpenDetail(movie);
+        else navigate(`/movie/${movie.id}`);
+      }}
       className="absolute top-0 flex flex-col pointer-events-auto bg-[#141414] rounded-xl overflow-hidden cursor-pointer"
       style={{ 
         width: 300, 
@@ -271,7 +281,11 @@ function HoverCard({ movie, level, align, posterUrl, baseYear, baseRating, onOpe
           className="flex items-center gap-2 mt-2"
         >
           <button
-            onClick={(e) => { e.stopPropagation(); onOpenDetail?.(movie); }}
+            onClick={(e) => { 
+              e.stopPropagation(); 
+              if (onOpenDetail) onOpenDetail(movie);
+              else navigate(`/movie/${movie.id}`);
+            }}
             className="flex-1 flex items-center justify-center gap-1.5 text-xs font-bold py-1.5 rounded bg-white text-black hover:bg-white/90 transition-colors"
           >
             <Play size={12} fill="currentColor" /> Trailer
@@ -291,7 +305,11 @@ function HoverCard({ movie, level, align, posterUrl, baseYear, baseRating, onOpe
             {inWatchlist ? <Check size={12} /> : <Plus size={12} />}
           </button>
           <button
-            onClick={(e) => { e.stopPropagation(); onOpenDetail?.(movie); }}
+            onClick={(e) => { 
+              e.stopPropagation(); 
+              if (onOpenDetail) onOpenDetail(movie);
+              else navigate(`/movie/${movie.id}`);
+            }}
             className="w-8 h-8 rounded-full border border-white/30 flex items-center justify-center text-white hover:border-white transition-colors bg-[#242424] ml-auto"
             title="More Info"
           >
