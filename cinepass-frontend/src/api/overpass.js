@@ -18,7 +18,10 @@ export async function getNearbyCinemas(lat, lng, radius = 5000, cityName = "Your
   `;
   try {
     const res = await axios.post(OVERPASS, `data=${encodeURIComponent(query)}`, {
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      headers: { 
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Accept": "application/json"
+      },
       timeout: 20000,
     });
     const elements = res.data.elements || [];
@@ -44,7 +47,10 @@ export async function getCinemasInCity(city, radius = 10000) {
   `;
   try {
     const res = await axios.post(OVERPASS, `data=${encodeURIComponent(query)}`, {
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      headers: { 
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Accept": "application/json"
+      },
       timeout: 25000,
     });
     const elements = res.data.elements || [];

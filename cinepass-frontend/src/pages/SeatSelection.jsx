@@ -109,6 +109,7 @@ export default function SeatSelection() {
   const [seatQuantity, setSeatQuantity] = useState(null);
   const [showQuantityModal, setShowQuantityModal] = useState(true);
   const [selectedSeats, setSelectedSeats] = useState([]);
+  const [isLocking, setIsLocking] = useState(false);
   
   const [selectedDate, setSelectedDate] = useState("01 Friday, Today");
   const [selectedTime, setSelectedTime] = useState("12:00PM, Matinee show");
@@ -422,14 +423,18 @@ export default function SeatSelection() {
               <button
                 onClick={async () => {
                   if (selectedSeats.length === 0) return addToast("Select seats first", "error");
+                  if (isLocking) return;
+                  
+                  setIsLocking(true);
                   try {
                     await lockSeats(showId, selectedSeats.map(s => s.id));
                     navigate('/checkout', { state: { showId, selectedSeats } });
                   } catch (err) {
                     addToast(err.message || "Failed to lock seats. They might be taken.", "error");
+                    setIsLocking(false);
                   }
                 }}
-                disabled={selectedSeats.length !== seatQuantity && seatQuantity !== null}
+                disabled={(selectedSeats.length !== seatQuantity && seatQuantity !== null) || isLocking}
                 className={`
                   px-12 py-4 rounded-full font-bold tracking-wide transition-all flex flex-col items-center leading-tight
                   ${selectedSeats.length === seatQuantity 
