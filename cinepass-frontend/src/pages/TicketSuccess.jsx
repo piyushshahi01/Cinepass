@@ -59,7 +59,7 @@ export default function TicketSuccess() {
   const { data: showData } = useQuery({
     queryKey: ["show", showId],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:8080/api/shows/${showId}`);
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/shows/${showId}`);
       const json = await res.json();
       return json.data;
     },

@@ -81,7 +81,7 @@ export default function SeatSelection() {
     if (!showId) return;
 
     const client = new Client({
-      webSocketFactory: () => new SockJS("http://localhost:8080/ws"),
+      webSocketFactory: () => new SockJS(`${import.meta.env.VITE_API_BASE_URL}/ws"),
       debug: (str) => console.log("[STOMP]", str),
       reconnectDelay: 5000,
     });
