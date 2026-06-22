@@ -1,5 +1,5 @@
 redis.zip
-redis/
+/redis/
 dump.rdb
 .vite/
 node_modules/
