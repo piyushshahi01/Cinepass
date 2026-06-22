@@ -1,6 +1,5 @@
 services:
   - type: web
     name: cinepass-backend-piyush01
+    env: docker
     rootDir: cinepass-backend
-    buildCommand: ./mvnw clean package -DskipTests
-    startCommand: java -jar target/*.jar
