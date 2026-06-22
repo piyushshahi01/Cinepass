@@ -277,18 +277,8 @@ export default function SeatSelection() {
           <div className="flex items-center justify-between p-8 border-b border-white/5 bg-[#12121a] shadow-sm z-10">
             <div className="flex-1 flex flex-col items-center border-r border-white/5">
               <span className="text-xs font-bold text-white/40 uppercase tracking-wider mb-1">Date</span>
-              <div className="relative mt-1">
-                <select 
-                  value={selectedDate}
-                  onChange={(e) => setSelectedDate(e.target.value)}
-                  className="text-sm font-bold text-[#e11d48] bg-transparent appearance-none cursor-pointer pr-4 hover:text-white transition-colors focus:outline-none"
-                >
-                  <option className="bg-[#12121a]">01 Friday, Today</option>
-                  <option className="bg-[#12121a]">02 Saturday</option>
-                  <option className="bg-[#12121a]">03 Sunday</option>
-                  <option className="bg-[#12121a]">04 Monday</option>
-                </select>
-                <ChevronLeft size={14} className="-rotate-90 absolute right-0 top-1/2 -translate-y-1/2 text-[#e11d48] pointer-events-none" />
+              <div className="relative mt-1 text-sm font-bold text-[#e11d48]">
+                {new Date(showData.showDate).toLocaleDateString('en-US', { weekday: 'short', day: '2-digit', month: 'short' })}
               </div>
             </div>
             <div className="flex-1 flex flex-col items-center">

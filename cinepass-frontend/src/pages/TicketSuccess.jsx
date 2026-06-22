@@ -23,24 +23,27 @@ export default function TicketSuccess() {
   useEffect(() => {
     if (!mounted) {
       setMounted(true);
-      addToast("🎉 Booking confirmed successfully!", "success");
+      const timer = setTimeout(() => {
+        addToast("🎉 Booking confirmed successfully!", "success");
+      }, 100);
+      return () => clearTimeout(timer);
     }
   }, [addToast, mounted]);
 
-  // Countdown and auto-redirect to homepage
+  // Auto-redirect to homepage when countdown reaches 0
+  useEffect(() => {
+    if (countdown === 0) {
+      navigate("/");
+    }
+  }, [countdown, navigate]);
+
+  // Countdown timer
   useEffect(() => {
     const interval = setInterval(() => {
-      setCountdown(prev => {
-        if (prev <= 1) {
-          clearInterval(interval);
-          navigate("/");
-          return 0;
-        }
-        return prev - 1;
-      });
+      setCountdown(prev => (prev > 0 ? prev - 1 : 0));
     }, 1000);
     return () => clearInterval(interval);
-  }, [navigate]);
+  }, []);
 
   // Try to fetch booking from backend, but don't block if it fails
   const { data: booking } = useQuery({

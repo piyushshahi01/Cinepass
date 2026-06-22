@@ -34,7 +34,7 @@ public class AdminSeeder implements CommandLineRunner {
                     .provider(Provider.LOCAL)
                     .build();
             userRepository.save(admin);
-            log.info("Default Admin User seeded successfully. Email: {}, Password: admin123", adminEmail);
+            log.info("Default Admin User seeded successfully. Email: {}", adminEmail);
         } else {
             log.info("Admin user already exists. Skipping seeder.");
         }

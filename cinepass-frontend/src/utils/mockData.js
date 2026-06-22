@@ -13,8 +13,10 @@ function hashString(str) {
   return Math.abs(hash);
 }
 
-export function generateShowtimes(cinemaId, movieId = "default") {
-  const seed = hashString(cinemaId + movieId);
+export function generateShowtimes(cinemaId, movieId = "default", cinemaName = "") {
+  // Use cinemaName instead of cinemaId for a stable hash across different users
+  const stableIdentifier = cinemaName ? cinemaName : cinemaId;
+  const seed = hashString(stableIdentifier + movieId);
   
   // Decide how many formats this theatre has (1 to 3)
   const numFormats = (seed % 3) + 1;

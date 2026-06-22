@@ -34,7 +34,7 @@ public class PaymentService {
 
     @Transactional
     public PaymentResponse initiatePayment(PaymentInitiateRequest request) {
-        Booking booking = bookingRepository.findById(request.getBookingId())
+        Booking booking = bookingRepository.findByBookingId(request.getBookingId())
                 .orElseThrow(() -> new IllegalArgumentException("Booking not found"));
 
         // Check for duplicate payment attempt

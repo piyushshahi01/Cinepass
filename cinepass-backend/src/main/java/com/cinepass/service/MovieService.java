@@ -1,6 +1,7 @@
 package com.cinepass.service;
 
 import com.cinepass.dto.MovieDto;
+import lombok.extern.slf4j.Slf4j;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class MovieService {
 
     private final RestTemplate restTemplate;
@@ -55,9 +57,11 @@ public class MovieService {
                 return mapToDto(response.getBody());
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Error fetching movie by id: {}", id, e);
         }
-        throw new RuntimeException("Movie not found");
+        throw new org.springframework.web.server.ResponseStatusException(
+                org.springframework.http.HttpStatus.NOT_FOUND, "Movie not found"
+        );
     }
 
     private List<MovieDto> fetchMovies(String endpoint) {
@@ -70,7 +74,7 @@ public class MovieService {
                         .collect(Collectors.toList());
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Error fetching movies from endpoint: {}", endpoint, e);
         }
         return new ArrayList<>();
     }

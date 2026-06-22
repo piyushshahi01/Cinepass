@@ -49,7 +49,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/register", "/api/auth/login", "/api/auth/refresh").permitAll()
                         .requestMatchers("/oauth2/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/movies/**", "/api/theatres/**", "/api/screens/**", "/api/shows/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/movies/**", "/api/theatres/**", "/api/screens/**", "/api/shows/**", "/api/seats/show/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/shows/sync").permitAll()
                         .requestMatchers("/ws/**").permitAll()
                         .anyRequest().authenticated()
@@ -60,7 +60,7 @@ public class SecurityConfig {
                 .exceptionHandling(exceptions -> exceptions
                         .authenticationEntryPoint((request, response, authException) -> {
                             if (request.getRequestURI().startsWith("/api/")) {
-                                response.sendError(jakarta.servlet.http.HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
+                                response.sendError(jakarta.servlet.http.HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
                             } else {
                                 response.sendRedirect("/oauth2/authorization/google");
                             }

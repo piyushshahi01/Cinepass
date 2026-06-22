@@ -40,6 +40,12 @@ export const lockSeats = async (showId, seatIds) => {
   return response.data.data;
 };
 
+export const releaseSeats = async (showId, seatIds) => {
+  const response = await api.post('/seats/release', { showId, seatIds });
+  if (!response.data.success) throw new Error(response.data.message || 'Failed to release seats');
+  return response.data.data;
+};
+
 export const confirmBooking = async (bookingRequest) => {
   const response = await api.post('/booking/confirm', bookingRequest);
   if (!response.data.success) throw new Error(response.data.message || 'Failed to confirm booking');

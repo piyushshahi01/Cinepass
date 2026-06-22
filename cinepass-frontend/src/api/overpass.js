@@ -51,7 +51,6 @@ export async function getCinemasInCity(city, radius = 10000) {
     if (elements.length === 0) throw new Error("No cinemas found");
     return parseElements(elements);
   } catch (err) {
-    console.warn("Overpass API failed, returning mock data:", err.message);
     const pop = POPULAR_CITIES.find(c => c.name.toLowerCase() === city.toLowerCase());
     return getMockCinemas(pop?.lat || 20, pop?.lng || 78, city);
   }

@@ -128,7 +128,7 @@ export default function TheatreSelection() {
             <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-2">
               {DATES.map((d, i) => (
                 <button
-                  key={i}
+                  key={`${d.date}-${d.month}`}
                   onClick={() => setSelectedDate(i)}
                   className={`flex flex-col items-center justify-center w-16 h-20 rounded-2xl border transition-all shrink-0 ${
                     selectedDate === i 
@@ -200,7 +200,7 @@ export default function TheatreSelection() {
                 <div className="w-8 h-8 rounded-full border-2 border-white/20 border-t-[#e11d48] animate-spin" />
               </div>
             ) : filteredTheatres.map(theatre => {
-              const formats = generateShowtimes(theatre.id, id);
+              const formats = generateShowtimes(theatre.id, id, theatre.name);
               // Provide some mock amenities if none exist
               const amenities = theatre.amenities || ["food", "parking", "wheelchair"];
               
@@ -232,7 +232,7 @@ export default function TheatreSelection() {
                 {/* Formats & Shows */}
                 <div className="space-y-6">
                   {formats.map((format, i) => (
-                    <div key={i} className="flex flex-col md:flex-row gap-4 border-t border-white/5 pt-6 first:border-0 first:pt-0">
+                    <div key={`format-${format.name}-${i}`} className="flex flex-col md:flex-row gap-4 border-t border-white/5 pt-6 first:border-0 first:pt-0">
                       
                       <div className="w-32 shrink-0 flex items-center gap-2 text-sm font-semibold text-white/70">
                         <MonitorPlay size={16} className="text-[#e11d48]" />
@@ -248,7 +248,7 @@ export default function TheatreSelection() {
                           
                           return (
                             <button
-                              key={j}
+                              key={`show-${show.time}-${j}`}
                               onClick={() => handleShowClick(theatre, format, show)}
                               className={`px-4 py-2 rounded-xl border ${colorClass} bg-white/5 hover:bg-white/10 transition-colors text-sm font-medium flex flex-col items-center`}
                             >

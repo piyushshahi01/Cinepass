@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ChevronLeft, CreditCard, Smartphone, ShieldCheck, Loader2, Wallet, Building, Check, Lock } from "lucide-react";
 import { useToast } from "../context/ToastContext";
-import { confirmBooking, initiatePayment } from "../api/backend";
+import { confirmBooking, initiatePayment, releaseSeats } from "../api/backend";
 import { useBooking } from "../context/BookingContext";
 
 const PAYMENT_METHODS = [
@@ -29,6 +29,36 @@ export default function Payment() {
   const [selectedSubMethod, setSelectedSubMethod] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentStage, setPaymentStage] = useState(""); // "", "booking", "paying", "success"
+  const isBookingConfirmedRef = useRef(false);
+
+  useEffect(() => {
+    const mountTime = Date.now();
+    const handleBeforeUnload = (e) => {
+      // If we haven't confirmed booking, release the locked seats
+      if (!isBookingConfirmedRef.current && !existingBookingId && showId && selectedSeats?.length > 0) {
+        fetch('http://localhost:8080/api/seats/release', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ showId, seatIds: selectedSeats.map(s => s.id) }),
+          keepalive: true
+        });
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      
+      // Ignore React StrictMode immediate unmount (can take longer than 200ms on slower devices)
+      if (Date.now() - mountTime < 2000) return;
+
+      // Unmount: release seats if not confirmed
+      if (!isBookingConfirmedRef.current && !existingBookingId && showId && selectedSeats?.length > 0) {
+        releaseSeats(showId, selectedSeats.map(s => s.id)).catch(err => console.error(err));
+      }
+    };
+  }, [showId, selectedSeats, existingBookingId]);
 
   const handlePayment = async () => {
     setIsProcessing(true);
@@ -46,15 +76,20 @@ export default function Payment() {
         };
         const booking = await confirmBooking(bookingRequest);
         finalBookingId = booking.id || booking.bookingId;
+        isBookingConfirmedRef.current = true;
       }
 
       setPaymentStage("paying");
 
       if (finalBookingId) {
         try {
+          let backendMethod = selectedMethod.toUpperCase();
+          if (backendMethod === "CARD") backendMethod = "CREDIT_CARD";
+          if (backendMethod === "NETBANKING") backendMethod = "NET_BANKING";
+          
           await initiatePayment({
             bookingId: finalBookingId,
-            paymentMethod: selectedMethod.toUpperCase(),
+            paymentMethod: backendMethod,
           });
         } catch (e) {
           // Payment API might not be fully implemented, proceed anyway

@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class PaymentInitiateRequest {
     @NotNull(message = "Booking ID cannot be null")
-    private Long bookingId;
+    private String bookingId;
 
     @NotNull(message = "Payment method cannot be null")
     private PaymentMethod paymentMethod;

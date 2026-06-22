@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
 import { ChevronLeft, MapPin, Tag, Check, CreditCard, ShieldCheck, Clock, Calendar, Armchair, Ticket, Sparkles, Film } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { getMovieDetails, poster, formatRuntime, getYear } from "../api/tmdb";
-import { getShowById } from "../api/backend";
+import { getShowById, releaseSeats } from "../api/backend";
 import { useToast } from "../context/ToastContext";
 
 export default function Checkout() {
@@ -37,6 +37,37 @@ export default function Checkout() {
   const [coupon, setCoupon] = useState("");
   const [couponApplied, setCouponApplied] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
+  const isProceedingRef = useRef(false);
+
+  useEffect(() => {
+    const mountTime = Date.now();
+    // Release seats if user navigates away or closes tab without proceeding to payment
+    const handleBeforeUnload = (e) => {
+      if (!isProceedingRef.current && showId && selectedSeats?.length > 0) {
+        // Use Beacon API or sync XHR if possible, but fetch with keepalive is best
+        fetch('http://localhost:8080/api/seats/release', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ showId, seatIds: selectedSeats.map(s => s.id) }),
+          keepalive: true
+        });
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      
+      // Ignore React StrictMode immediate unmount (can take longer than 200ms on slower devices)
+      if (Date.now() - mountTime < 2000) return;
+
+      // If component unmounts and we're not proceeding to payment, release seats
+      if (!isProceedingRef.current && showId && selectedSeats?.length > 0) {
+        releaseSeats(showId, selectedSeats.map(s => s.id)).catch(err => console.error(err));
+      }
+    };
+  }, [showId, selectedSeats]);
 
   if (!showId || !selectedSeats) return null;
 
@@ -72,6 +103,7 @@ export default function Checkout() {
 
   const handleProceedToPayment = () => {
     setIsProcessing(true);
+    isProceedingRef.current = true;
     // Pass all booking data to the payment page directly
     // The payment page will handle the actual booking confirmation
     setTimeout(() => {

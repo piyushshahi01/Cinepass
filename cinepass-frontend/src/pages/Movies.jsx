@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { motion } from "motion/react";
-import { Filter, ChevronDown, X } from "lucide-react";
+import { Filter } from "lucide-react";
 import { discoverMovies, getGenres } from "../api/tmdb";
 import MovieCard from "../components/MovieCard";
 import { SkeletonCard } from "../components/ui/SkeletonCard";
@@ -165,7 +165,7 @@ export default function Movies() {
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
         {isLoading ? (
-          [...Array(10)].map((_, i) => <SkeletonCard key={i} />)
+          [...Array(10)].map((_, i) => <SkeletonCard key={`skeleton-${i}`} />)
         ) : (
           movies.map((movie, i) => (
             <motion.div

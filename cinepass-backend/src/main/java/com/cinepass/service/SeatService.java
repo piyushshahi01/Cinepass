@@ -130,7 +130,7 @@ public class SeatService {
             throw new IllegalArgumentException("Duplicate seat IDs found in request");
         }
 
-        List<Seat> seats = seatRepository.findAllById(seatIds);
+        List<Seat> seats = seatRepository.findByIdsWithPessimisticLock(new ArrayList<>(uniqueSeatIds));
         if (seats.size() != seatIds.size()) {
             throw new IllegalArgumentException("Invalid seat IDs");
         }
