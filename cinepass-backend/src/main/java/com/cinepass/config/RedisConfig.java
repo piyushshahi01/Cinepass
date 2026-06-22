@@ -30,16 +30,13 @@ import java.time.Duration;
 @EnableCaching
 public class RedisConfig {
 
-    @Value("${spring.data.redis.host:localhost}")
-    private String redisHost;
-
-    @Value("${spring.data.redis.port:6379}")
-    private int redisPort;
+    @Value("${spring.data.redis.url:redis://localhost:6379}")
+    private String redisUrl;
 
     @Bean
     public RedissonClient redissonClient() {
         Config config = new Config();
-        config.useSingleServer().setAddress("redis://" + redisHost + ":" + redisPort);
+        config.useSingleServer().setAddress(redisUrl);
         return Redisson.create(config);
     }
 
