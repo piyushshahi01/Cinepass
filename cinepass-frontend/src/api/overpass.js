@@ -1,30 +1,15 @@
-import axios from "axios";
-
-const OVERPASS = "https://overpass-api.de/api/interpreter";
+import api from "./backend";
 
 /**
  * Fetch cinemas within `radius` metres of the given lat/lng
- * using OpenStreetMap Overpass API (amenity=cinema).
+ * using OpenStreetMap Overpass API via Spring Boot backend.
  */
 export async function getNearbyCinemas(lat, lng, radius = 5000, cityName = "Your Area") {
-  const query = `
-    [out:json][timeout:25];
-    (
-      node["amenity"="cinema"](around:${radius},${lat},${lng});
-      way["amenity"="cinema"](around:${radius},${lat},${lng});
-      relation["amenity"="cinema"](around:${radius},${lat},${lng});
-    );
-    out center tags;
-  `;
   try {
-    const res = await axios.post(OVERPASS, `data=${encodeURIComponent(query)}`, {
-      headers: { 
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Accept": "application/json"
-      },
-      timeout: 20000,
+    const res = await api.get('/theatres/nearby', {
+      params: { lat, lng, radius }
     });
-    const elements = res.data.elements || [];
+    const elements = res.data?.elements || [];
     if (elements.length === 0) throw new Error("No cinemas found");
     return parseElements(elements);
   } catch (err) {
@@ -36,24 +21,11 @@ export async function getNearbyCinemas(lat, lng, radius = 5000, cityName = "Your
  * Fetch cinemas in a city by name.
  */
 export async function getCinemasInCity(city, radius = 10000) {
-  const query = `
-    [out:json][timeout:30];
-    area["name"="${city}"]["place"~"city|town|state"]["boundary"~"administrative"]->.searchArea;
-    (
-      node["amenity"="cinema"](area.searchArea);
-      way["amenity"="cinema"](area.searchArea);
-    );
-    out center tags;
-  `;
   try {
-    const res = await axios.post(OVERPASS, `data=${encodeURIComponent(query)}`, {
-      headers: { 
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Accept": "application/json"
-      },
-      timeout: 25000,
+    const res = await api.get('/theatres/search', {
+      params: { city, radius }
     });
-    const elements = res.data.elements || [];
+    const elements = res.data?.elements || [];
     if (elements.length === 0) throw new Error("No cinemas found");
     return parseElements(elements);
   } catch (err) {

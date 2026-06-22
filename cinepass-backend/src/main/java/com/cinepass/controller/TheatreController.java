@@ -15,6 +15,7 @@ import java.util.List;
 public class TheatreController {
 
     private final TheatreService theatreService;
+    private final com.cinepass.service.OverpassService overpassService;
 
     @GetMapping
     public ResponseEntity<ApiResponse<List<TheatreDto>>> getAllTheatres() {
@@ -29,5 +30,20 @@ public class TheatreController {
     @GetMapping("/city/{city}")
     public ResponseEntity<ApiResponse<List<TheatreDto>>> getTheatresByCity(@PathVariable String city) {
         return ResponseEntity.ok(ApiResponse.success(theatreService.getTheatresByCity(city), "Theatres in city fetched successfully"));
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<String> searchCinemasInCity(
+            @RequestParam String city, 
+            @RequestParam(defaultValue = "10000") int radius) {
+        return ResponseEntity.ok(overpassService.searchCinemasInCity(city, radius));
+    }
+
+    @GetMapping("/nearby")
+    public ResponseEntity<String> getNearbyCinemas(
+            @RequestParam double lat, 
+            @RequestParam double lng, 
+            @RequestParam(defaultValue = "5000") int radius) {
+        return ResponseEntity.ok(overpassService.getNearbyCinemas(lat, lng, radius));
     }
 }
