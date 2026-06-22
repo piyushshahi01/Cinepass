@@ -108,7 +108,7 @@ export default function CommandPalette() {
                 <span className="flex items-center gap-1">Use <kbd className="font-mono bg-white/10 px-1 rounded">↑</kbd> <kbd className="font-mono bg-white/10 px-1 rounded">↓</kbd> to navigate</span>
                 <span className="flex items-center gap-1">Press <kbd className="font-mono bg-white/10 px-1 rounded">Enter</kbd> to select</span>
               </div>
-              <div className="font-bold tracking-widest uppercase">CinePass</div>
+              <div className="font-bold tracking-widest uppercase">OneCinema</div>
             </div>
           </motion.div>
         </>

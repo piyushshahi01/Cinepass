@@ -5,7 +5,7 @@ import { useSearch } from "../../hooks/useMovies";
 import { poster } from "../../api/tmdb";
 import { useDebounce } from "../../hooks/useDebounce";
 
-const RECENT_KEY = "cinepass_recent_searches";
+const RECENT_KEY = "onecinema_recent_searches";
 
 function loadRecent() {
   try { return JSON.parse(localStorage.getItem(RECENT_KEY) || "[]"); } catch { return []; }

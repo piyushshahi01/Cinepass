@@ -242,7 +242,7 @@ export default function SeatSelection() {
 
           <div className="p-8 flex-none flex flex-col relative z-10">
             <div className="w-8 h-1 bg-[#e11d48] rounded-full mb-4" />
-            <div className="text-xs font-semibold text-white/50 mb-1 tracking-wide uppercase">CinePass Exclusive</div>
+            <div className="text-xs font-semibold text-white/50 mb-1 tracking-wide uppercase">OneCinema Exclusive</div>
             <h1 className="text-2xl lg:text-3xl font-bold mb-3 leading-tight">{movie.title} (U/A)</h1>
             
             <div className="flex flex-wrap gap-2 mb-6">

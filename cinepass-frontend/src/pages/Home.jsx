@@ -180,7 +180,7 @@ function Navbar({ onSearchClick }) {
           {/* Logo */}
           <div className="flex items-center gap-2.5">
             <LogoMark className="w-7 h-7" />
-            <span className="text-sm font-semibold tracking-tight">CinePass</span>
+            <span className="text-sm font-semibold tracking-tight">OneCinema</span>
           </div>
 
           {/* Center links */}
@@ -880,7 +880,7 @@ function Recommendations() {
             <span className="w-3 h-3 rounded-full bg-[#28c840]" />
           </div>
           <span className="text-xs text-white/40 absolute left-1/2 -translate-x-1/2">
-            CinePass — For You
+            OneCinema — For You
           </span>
           <div className="flex items-center gap-2 text-white/40">
             <Sparkles size={12} />
@@ -994,21 +994,21 @@ function Recommendations() {
 function Testimonials() {
   const reviews = [
     {
-      text: "CinePass made booking so effortless. I got IMAX seats for Dune in under 30 seconds. The seat selection view is incredible — you can see exactly what your view will look like.",
+      text: "OneCinema made booking so effortless. I got IMAX seats for Dune in under 30 seconds. The seat selection view is incredible — you can see exactly what your view will look like.",
       name: "Arjun Mehta",
       role: "Movie Enthusiast",
       rating: 5,
       company: "MUMBAI",
     },
     {
-      text: "I book tickets every weekend and CinePass is the only app that shows real-time seat availability. No more arriving at the theatre to find out the show is sold out.",
+      text: "I book tickets every weekend and OneCinema is the only app that shows real-time seat availability. No more arriving at the theatre to find out the show is sold out.",
       name: "Priya Sharma",
       role: "Film Critic",
       rating: 5,
       company: "DELHI",
     },
     {
-      text: "The recommendations are spot on. CinePass suggested Midnight Protocol based on my watchlist, and it became my favorite film this year. The personalization is unreal.",
+      text: "The recommendations are spot on. OneCinema suggested Midnight Protocol based on my watchlist, and it became my favorite film this year. The personalization is unreal.",
       name: "Rahul Verma",
       role: "Filmmaker",
       rating: 4,
@@ -1072,11 +1072,11 @@ function FAQ() {
     },
     {
       q: "Can I cancel my booking?",
-      a: "Yes! You can cancel up to 2 hours before the show starts for a full refund. Cancellations within 2 hours receive a 75% refund as CinePass credit. Premium screenings have a 4-hour cancellation window.",
+      a: "Yes! You can cancel up to 2 hours before the show starts for a full refund. Cancellations within 2 hours receive a 75% refund as OneCinema credit. Premium screenings have a 4-hour cancellation window.",
     },
     {
       q: "How do refunds work?",
-      a: "Refunds are processed within 3-5 business days to your original payment method. For wallet payments, refunds are instant. You can also opt for CinePass credits which are applied immediately and include a 10% bonus.",
+      a: "Refunds are processed within 3-5 business days to your original payment method. For wallet payments, refunds are instant. You can also opt for OneCinema credits which are applied immediately and include a 10% bonus.",
     },
     {
       q: "How does seat selection work?",
@@ -1163,7 +1163,7 @@ function FinalCTA() {
           Lights. Camera. <br /> Book.
         </h2>
         <p className="relative mt-6 text-white/60 max-w-md mx-auto text-sm leading-[1.6]">
-          Join millions of movie lovers who've made CinePass their go-to
+          Join millions of movie lovers who've made OneCinema their go-to
           booking platform. Your next cinematic experience is just a tap away.
         </p>
         <div className="relative mt-10 flex flex-wrap justify-center gap-4">

@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 
-const KEY = "cinepass_watchlist";
+const KEY = "onecinema_watchlist";
 
 function load() {
   try { return JSON.parse(localStorage.getItem(KEY) || "[]"); }

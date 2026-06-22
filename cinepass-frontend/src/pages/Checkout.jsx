@@ -93,7 +93,7 @@ export default function Checkout() {
   const backdropUrl = poster(movie.backdrop_path, "w1280");
 
   const handleApplyCoupon = () => {
-    if (coupon.toLowerCase() === "cinepass100") {
+    if (coupon.toLowerCase() === "onecinema100") {
       setCouponApplied(true);
       addToast("🎉 Coupon applied! ₹100 off", "success");
     } else {
@@ -230,7 +230,7 @@ export default function Checkout() {
                 <div className="flex-1 p-6 flex flex-col justify-center">
                   <div className="flex items-center gap-2 mb-2">
                     <Film size={14} className="text-[#e11d48]" />
-                    <span className="text-[10px] font-bold text-[#e11d48] uppercase tracking-widest">CinePass Booking</span>
+                    <span className="text-[10px] font-bold text-[#e11d48] uppercase tracking-widest">OneCinema Booking</span>
                   </div>
                   <h2 className="text-xl md:text-2xl font-bold mb-1 leading-tight">{movie.title}</h2>
                   <p className="text-white/40 text-sm mb-4">
@@ -316,7 +316,7 @@ export default function Checkout() {
                   value={coupon}
                   onChange={(e) => setCoupon(e.target.value.toUpperCase())}
                   disabled={couponApplied}
-                  placeholder="CINEPASS100"
+                  placeholder="ONECINEMA100"
                   className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm font-mono tracking-wider focus:outline-none focus:border-[#e11d48]/50 transition-colors placeholder:text-white/20 disabled:opacity-50"
                 />
                 <button
@@ -337,7 +337,7 @@ export default function Checkout() {
                   animate={{ opacity: 1, y: 0 }}
                   className="text-green-400 text-xs mt-3 flex items-center gap-1"
                 >
-                  <Sparkles size={12} /> Coupon CINEPASS100 applied — ₹100 off!
+                  <Sparkles size={12} /> Coupon ONECINEMA100 applied — ₹100 off!
                 </motion.p>
               )}
             </motion.div>

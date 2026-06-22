@@ -124,7 +124,7 @@ export default function TicketSuccess() {
       <!DOCTYPE html>
       <html>
       <head>
-        <title>CinePass Ticket - ${bookingId}</title>
+        <title>OneCinema Ticket - ${bookingId}</title>
         <style>
           * { margin: 0; padding: 0; box-sizing: border-box; }
           body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f5f5f5; padding: 40px; display: flex; justify-content: center; }
@@ -155,7 +155,7 @@ export default function TicketSuccess() {
       <body>
         <div class="ticket">
           <div class="header">
-            <h1>🎬 CinePass</h1>
+            <h1>🎬 OneCinema</h1>
             <h2>${movieTitle}</h2>
           </div>
           <div class="perf"><div class="dot"></div><div class="line"></div><div class="dot"></div></div>
@@ -182,7 +182,7 @@ export default function TicketSuccess() {
             </div>
           </div>
           <div class="footer">
-            CinePass • Your screen awaits • Non-refundable after showtime
+            OneCinema • Your screen awaits • Non-refundable after showtime
           </div>
         </div>
       </body>
@@ -193,7 +193,7 @@ export default function TicketSuccess() {
 
   const handleShare = async () => {
     const shareData = {
-      title: `CinePass Ticket - ${movieTitle}`,
+      title: `OneCinema Ticket - ${movieTitle}`,
       text: `🎬 ${movieTitle}\n📅 ${showDate} at ${showTime}\n📍 ${theatreName}\n💺 Seats: ${seatNumbers}\n🎫 Booking: ${bookingId}`,
     };
 
@@ -211,7 +211,7 @@ export default function TicketSuccess() {
 
   const handleAddToCalendar = () => {
     // Create a Google Calendar event link
-    const title = encodeURIComponent(`${movieTitle} - CinePass`);
+    const title = encodeURIComponent(`${movieTitle} - OneCinema`);
     const details = encodeURIComponent(`Theatre: ${theatreName}\nScreen: ${screenName}\nSeats: ${seatNumbers}\nBooking ID: ${bookingId}`);
     const location_str = encodeURIComponent(`${theatreName}, ${theatreCity}`);
     const calUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&location=${location_str}`;
@@ -270,10 +270,10 @@ export default function TicketSuccess() {
               )}
               <div className="absolute inset-0 bg-gradient-to-t from-[#12121a] via-[#12121a]/60 to-transparent" />
 
-              {/* CinePass Badge */}
+              {/* OneCinema Badge */}
               <div className="absolute top-4 left-5 flex items-center gap-2">
                 <Film size={14} className="text-[#e11d48]" />
-                <span className="text-[10px] font-bold text-white/60 uppercase tracking-[0.2em]">CinePass E-Ticket</span>
+                <span className="text-[10px] font-bold text-white/60 uppercase tracking-[0.2em]">OneCinema E-Ticket</span>
               </div>
 
               {/* Movie Title */}
@@ -385,7 +385,7 @@ export default function TicketSuccess() {
             {/* Footer */}
             <div className="border-t border-white/5 px-6 py-3 flex items-center justify-center gap-2 text-[10px] text-white/20">
               <Ticket size={10} />
-              <span>CinePass • Your screen awaits • Non-refundable after showtime</span>
+              <span>OneCinema • Your screen awaits • Non-refundable after showtime</span>
             </div>
           </div>
         </motion.div>

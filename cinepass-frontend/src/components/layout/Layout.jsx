@@ -99,7 +99,7 @@ function Navbar({ onSearchClick }) {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5">
             <LogoMark className="w-7 h-7" />
-            <span className="text-sm font-semibold tracking-tight text-white">CinePass</span>
+            <span className="text-sm font-semibold tracking-tight text-white">OneCinema</span>
           </Link>
 
           {/* Center links */}
@@ -217,7 +217,7 @@ export function Footer() {
         <div className="col-span-2 md:col-span-1">
           <div className="flex items-center gap-2.5 mb-4">
             <LogoMark className="w-6 h-6" />
-            <span className="text-sm font-semibold">CinePass</span>
+            <span className="text-sm font-semibold">OneCinema</span>
           </div>
           <p className="text-xs text-white/40 leading-[1.6]">
             India's premium movie ticket booking platform. Every seat, every screen, every city.
@@ -241,7 +241,7 @@ export function Footer() {
       </div>
       <div className="flex flex-col md:flex-row items-center justify-between pt-6 border-t border-white/[0.06]">
         <span className="text-xs text-white/30">
-          © 2026 CinePass, Inc. · All rights reserved.
+          © 2026 OneCinema, Inc. · All rights reserved.
         </span>
       </div>
     </footer>

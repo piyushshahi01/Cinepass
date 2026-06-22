@@ -53,7 +53,7 @@ export default function Contact() {
             </div>
             <h3 className="text-lg font-bold mb-2">Email Support</h3>
             <p className="text-white/50 mb-2">Our team will respond within 24 hours.</p>
-            <a href="mailto:support@cinepass.com" className="text-lg font-medium hover:text-blue-400 transition-colors">support@cinepass.com</a>
+            <a href="mailto:support@onecinema.com" className="text-lg font-medium hover:text-blue-400 transition-colors">support@onecinema.com</a>
           </motion.div>
 
           <motion.div 

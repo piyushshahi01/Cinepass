@@ -23,7 +23,7 @@ export default function Search() {
   }, [debouncedQuery, setSearchParams]);
 
   useEffect(() => {
-    const saved = localStorage.getItem("cinepass_recent_searches");
+    const saved = localStorage.getItem("onecinema_recent_searches");
     if (saved) setRecentSearches(JSON.parse(saved));
   }, []);
 
@@ -31,12 +31,12 @@ export default function Search() {
     if (!term.trim()) return;
     const updated = [term, ...recentSearches.filter(s => s !== term)].slice(0, 5);
     setRecentSearches(updated);
-    localStorage.setItem("cinepass_recent_searches", JSON.stringify(updated));
+    localStorage.setItem("onecinema_recent_searches", JSON.stringify(updated));
   };
 
   const clearRecent = () => {
     setRecentSearches([]);
-    localStorage.removeItem("cinepass_recent_searches");
+    localStorage.removeItem("onecinema_recent_searches");
   };
 
   const {

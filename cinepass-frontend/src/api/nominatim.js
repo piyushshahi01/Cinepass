@@ -4,7 +4,7 @@ const BASE = "https://nominatim.openstreetmap.org";
 
 const nom = axios.create({
   baseURL: BASE,
-  headers: { "Accept-Language": "en", "User-Agent": "CinePass/1.0" },
+  headers: { "Accept-Language": "en", "User-Agent": "OneCinema/1.0" },
   timeout: 8000,
 });
 

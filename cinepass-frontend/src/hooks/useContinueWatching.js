@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 
-const KEY = "cinepass_continue";
+const KEY = "onecinema_continue";
 
 // Seed with some demo data so the section isn't empty on first load
 const DEMO = [

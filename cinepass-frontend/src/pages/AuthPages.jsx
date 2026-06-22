@@ -97,7 +97,7 @@ export default function AuthPages() {
               {isLogin ? "Welcome back" : "Create an account"}
             </h1>
             <p className="text-sm text-white/50">
-              {isLogin ? "Enter your details to access your account." : "Join CinePass for premium movie experiences."}
+              {isLogin ? "Enter your details to access your account." : "Join OneCinema for premium movie experiences."}
             </p>
           </div>
 

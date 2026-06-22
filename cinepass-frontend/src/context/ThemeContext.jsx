@@ -4,7 +4,7 @@ const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState(() => {
-    return localStorage.getItem("cinepass_theme") || "dark";
+    return localStorage.getItem("onecinema_theme") || "dark";
   });
 
   useEffect(() => {
@@ -14,7 +14,7 @@ export function ThemeProvider({ children }) {
     } else {
       root.classList.remove("light");
     }
-    localStorage.setItem("cinepass_theme", theme);
+    localStorage.setItem("onecinema_theme", theme);
   }, [theme]);
 
   const toggleTheme = () => {

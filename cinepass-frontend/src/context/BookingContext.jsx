@@ -19,24 +19,24 @@ export function BookingProvider({ children }) {
 
   // Bookings
   const [bookings, setBookings] = useState(() => {
-    const saved = localStorage.getItem("cinepass_bookings");
+    const saved = localStorage.getItem("onecinema_bookings");
     return saved ? JSON.parse(saved) : [];
   });
 
   // Notifications
   const [notifications, setNotifications] = useState(() => {
-    const saved = localStorage.getItem("cinepass_notifications");
+    const saved = localStorage.getItem("onecinema_notifications");
     return saved ? JSON.parse(saved) : [
-      { id: "1", title: "Welcome to CinePass!", message: "Your premium cinematic journey begins here.", read: false, date: new Date().toISOString() }
+      { id: "1", title: "Welcome to OneCinema!", message: "Your premium cinematic journey begins here.", read: false, date: new Date().toISOString() }
     ];
   });
 
   useEffect(() => {
-    localStorage.setItem("cinepass_bookings", JSON.stringify(bookings));
+    localStorage.setItem("onecinema_bookings", JSON.stringify(bookings));
   }, [bookings]);
 
   useEffect(() => {
-    localStorage.setItem("cinepass_notifications", JSON.stringify(notifications));
+    localStorage.setItem("onecinema_notifications", JSON.stringify(notifications));
   }, [notifications]);
 
   const addBooking = (bookingDetails) => {

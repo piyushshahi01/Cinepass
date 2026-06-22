@@ -42,7 +42,7 @@ export default function FAQ() {
         </div>
         <h1 className="text-4xl md:text-5xl font-bold mb-4">Frequently Asked Questions</h1>
         <p className="text-xl text-white/50 max-w-2xl mx-auto">
-          Everything you need to know about booking, payments, and the CinePass experience.
+          Everything you need to know about booking, payments, and the OneCinema experience.
         </p>
       </div>
 

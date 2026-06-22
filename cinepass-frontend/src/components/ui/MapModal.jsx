@@ -76,7 +76,7 @@ export default function MapModal({ isOpen, onClose, theatres, userCoords, city }
                 
                 {userCoords && (
                   <Marker position={[userCoords.lat, userCoords.lng]}>
-                    <Popup className="cinepass-popup">
+                    <Popup className="onecinema-popup">
                       <div className="font-semibold">You are here</div>
                     </Popup>
                   </Marker>
@@ -84,7 +84,7 @@ export default function MapModal({ isOpen, onClose, theatres, userCoords, city }
 
                 {theatres.map((t, i) => (
                   <Marker key={t.id || i} position={[t.lat, t.lon]}>
-                    <Popup className="cinepass-popup">
+                    <Popup className="onecinema-popup">
                       <div className="text-[#0a0a0f]">
                         <div className="font-bold text-sm mb-1">{t.name}</div>
                         {t.distance && <div className="text-[10px] text-gray-500">{t.distance} km away</div>}
