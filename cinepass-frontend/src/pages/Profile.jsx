@@ -5,11 +5,18 @@ import { useNavigate } from "react-router-dom";
 import { useBooking } from "../context/BookingContext";
 import { useWatchlist } from "../hooks/useWatchlist";
 import MovieCard from "../components/MovieCard";
-
+import { useQuery } from "@tanstack/react-query";
+import { getMyBookings } from "../api/backend";
 export default function Profile() {
   const navigate = useNavigate();
-  const { user, bookings } = useBooking();
+  const { user } = useBooking();
   const { list } = useWatchlist();
+
+  const { data: bookings = [] } = useQuery({
+    queryKey: ["myBookings", user?.id],
+    queryFn: () => getMyBookings(),
+    enabled: !!user?.id,
+  });
 
   useEffect(() => {
     if (!user) navigate("/login");
