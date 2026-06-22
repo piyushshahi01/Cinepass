@@ -14,7 +14,7 @@ export default function OAuth2Redirect() {
       localStorage.setItem("refreshToken", refreshToken);
 
       // Fetch user details
-      fetch(`${import.meta.env.VITE_API_BASE_URL}/api/auth/me", {
+      fetch(`${import.meta.env.VITE_API_BASE_URL}/api/auth/me`, {
         headers: {
           "Authorization": `Bearer ${accessToken}`
         }

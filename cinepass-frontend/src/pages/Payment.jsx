@@ -36,7 +36,7 @@ export default function Payment() {
     const handleBeforeUnload = (e) => {
       // If we haven't confirmed booking, release the locked seats
       if (!isBookingConfirmedRef.current && !existingBookingId && showId && selectedSeats?.length > 0) {
-        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/seats/release', {
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/seats/release`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ showId, seatIds: selectedSeats.map(s => s.id) }),

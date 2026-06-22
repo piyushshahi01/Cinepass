@@ -45,7 +45,7 @@ export default function Checkout() {
     const handleBeforeUnload = (e) => {
       if (!isProceedingRef.current && showId && selectedSeats?.length > 0) {
         // Use Beacon API or sync XHR if possible, but fetch with keepalive is best
-        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/seats/release', {
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/seats/release`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ showId, seatIds: selectedSeats.map(s => s.id) }),
