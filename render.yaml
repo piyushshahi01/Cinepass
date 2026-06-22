@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: cinepass-backend
+    env: java
+    rootDir: cinepass-backend
+    buildCommand: ./mvnw clean package -DskipTests
+    startCommand: java -jar target/*.jar
