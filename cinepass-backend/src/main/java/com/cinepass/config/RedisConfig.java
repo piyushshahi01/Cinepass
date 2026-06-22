@@ -36,7 +36,26 @@ public class RedisConfig {
     @Bean
     public RedissonClient redissonClient() {
         Config config = new Config();
-        config.useSingleServer().setAddress(redisUrl);
+        try {
+            java.net.URI uri = new java.net.URI(redisUrl);
+            org.redisson.config.SingleServerConfig serverConfig = config.useSingleServer();
+            
+            String prefix = uri.getScheme() != null ? uri.getScheme() + "://" : "redis://";
+            int port = uri.getPort() != -1 ? uri.getPort() : 6379;
+            serverConfig.setAddress(prefix + uri.getHost() + ":" + port);
+            
+            if (uri.getUserInfo() != null) {
+                String[] userInfo = uri.getUserInfo().split(":", 2);
+                if (userInfo.length == 2) {
+                    serverConfig.setUsername(userInfo[0].isEmpty() ? null : userInfo[0]);
+                    serverConfig.setPassword(userInfo[1]);
+                } else {
+                    serverConfig.setPassword(userInfo[0]);
+                }
+            }
+        } catch (Exception e) {
+            config.useSingleServer().setAddress(redisUrl);
+        }
         return Redisson.create(config);
     }
 
